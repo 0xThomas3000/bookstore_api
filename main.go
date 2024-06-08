@@ -53,5 +53,8 @@ func main() {
 	// 1. API to add a book
 	books.POST("/", ginbook.AddBook(appContext))
 
+	// 2. API to view details of a book by id
+	books.GET("/:id", ginbook.FindBook(appContext))
+
 	request.Run()
 }
