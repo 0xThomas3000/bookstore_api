@@ -56,5 +56,8 @@ func main() {
 	// 2. API to view details of a book by id
 	books.GET("/:id", ginbook.FindBook(appContext))
 
+	// 3. API to list all books
+	books.GET("/", ginbook.ListBook(appContext))
+
 	request.Run()
 }
