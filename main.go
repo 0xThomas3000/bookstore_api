@@ -8,6 +8,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/0xThomas3000/bookstore_api/component/appcontext"
+	"github.com/0xThomas3000/bookstore_api/features/book/transport/ginbook"
 	"github.com/0xThomas3000/bookstore_api/features/upload/transport/ginupload"
 	"github.com/0xThomas3000/bookstore_api/middleware"
 	"github.com/0xThomas3000/bookstore_api/util"
@@ -43,8 +44,14 @@ func main() {
 	// Register a link for '/static' to display the image
 	request.Static("/static", "./static")
 
-	v1 := request.Group("/v1")
-	v1.POST("/upload", ginupload.UploadImage(appContext))
+	g1 := request.Group("/g1")
+	g1.POST("/upload", ginupload.UploadImage(appContext))
+
+	/* ROUTER GROUP for books request */
+	books := g1.Group("/books")
+
+	// 1. API to add a book
+	books.POST("/", ginbook.AddBook(appContext))
 
 	request.Run()
 }

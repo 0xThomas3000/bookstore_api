@@ -29,7 +29,7 @@ func (b *Book) Mask() {
 	b.GenUID(core.DbTypeBook)
 }
 
-type BookCreate struct {
+type BookAdd struct {
 	core.SQLModel `json:",inline"`
 	Title         string      `json:"title" gorm:"column:title;"`
 	Author        string      `json:"author" gorm:"column:author;"`
@@ -40,15 +40,15 @@ type BookCreate struct {
 	Language      string      `json:"language" gorm:"language;"`
 }
 
-func (BookCreate) TableName() string {
+func (BookAdd) TableName() string {
 	return Book{}.TableName()
 }
 
-func (b *BookCreate) Mask() {
+func (b *BookAdd) Mask() {
 	b.GenUID(core.DbTypeBook)
 }
 
-func (b *BookCreate) Validate() error {
+func (b *BookAdd) Validate() error {
 	b.Title = strings.TrimSpace(b.Title)
 	b.Author = strings.TrimSpace(b.Author)
 	b.Isbn = strings.TrimSpace(b.Isbn)
