@@ -8,6 +8,8 @@ import (
 	"github.com/0xThomas3000/bookstore_api/core"
 )
 
+const EntityName = "Book"
+
 type Book struct {
 	core.SQLModel `json:",inline"`
 	Title         string      `json:"title" gorm:"column:title;"`
