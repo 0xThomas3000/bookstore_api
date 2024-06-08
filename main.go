@@ -7,7 +7,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"github.com/0xThomas3000/bookstore_api/component/appcontext"
+	"github.com/0xThomas3000/bookstore_api/features/upload/transport/ginupload"
+	"github.com/0xThomas3000/bookstore_api/middleware"
 	"github.com/0xThomas3000/bookstore_api/util"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -30,5 +34,17 @@ func main() {
 	}
 
 	db = db.Debug()
-	fmt.Println("Connect successfully")
+
+	appContext := appcontext.NewAppContext(db)
+
+	request := gin.Default()
+	request.Use(middleware.Recover(appContext))
+
+	// Register a link for '/static' to display the image
+	request.Static("/static", "./static")
+
+	v1 := request.Group("/v1")
+	v1.POST("/upload", ginupload.UploadImage(appContext))
+
+	request.Run()
 }
