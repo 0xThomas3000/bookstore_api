@@ -7,11 +7,11 @@ import (
 	"github.com/0xThomas3000/bookstore_api/core"
 	bookBusiness "github.com/0xThomas3000/bookstore_api/features/book/business"
 	bookEntity "github.com/0xThomas3000/bookstore_api/features/book/entities"
-	bookStorage "github.com/0xThomas3000/bookstore_api/features/book/storage"
+	bookStore "github.com/0xThomas3000/bookstore_api/features/book/storage"
 	"github.com/gin-gonic/gin"
 )
 
-func UpdateBook(appCtx appcontext.AppContext) gin.HandlerFunc {
+func DeleteBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 
@@ -21,16 +21,20 @@ func UpdateBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 			panic(core.ErrInvalidRequest(err))
 		}
 
-		var data bookEntity.BookUpdate
+		var data bookEntity.Book
 
 		if err := c.ShouldBind(&data); err != nil {
 			panic(core.ErrInvalidRequest(err))
 		}
 
-		store := bookStorage.NewSQLStore(db)
-		business := bookBusiness.NewUpdateBookBusiness(store)
+		store := bookStore.NewSQLStore(db)
+		business := bookBusiness.NewDeleteBookBusiness(store)
 
-		if err := business.UpdateBook(c.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
+		if err := business.DeleteBook(
+			c.Request.Context(),
+			int(uid.GetLocalID()),
+			&data,
+		); err != nil {
 			panic(err)
 		}
 

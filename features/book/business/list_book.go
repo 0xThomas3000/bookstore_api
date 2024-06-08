@@ -15,19 +15,19 @@ type ListBookStore interface {
 	) ([]bookEntity.Book, error)
 }
 
-type listBookBiz struct {
+type listBookBusiness struct {
 	store ListBookStore
 }
 
-func NewListBookBusiness(store ListBookStore) *listBookBiz {
-	return &listBookBiz{store: store}
+func NewListBookBusiness(store ListBookStore) *listBookBusiness {
+	return &listBookBusiness{store: store}
 }
 
-func (biz *listBookBiz) ListBook(
+func (business *listBookBusiness) ListBook(
 	context context.Context,
 	paging *core.Paging,
 ) ([]bookEntity.Book, error) {
-	result, err := biz.store.ListDataWithCondition(context, paging)
+	result, err := business.store.ListDataWithCondition(context, paging)
 	if err != nil {
 		return nil, err
 	}

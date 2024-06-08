@@ -23,9 +23,9 @@ func ListBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 		pagingData.Fulfill()
 
 		store := bookStorage.NewSQLStore(db)
-		biz := bookBusiness.NewListBookBusiness(store)
+		business := bookBusiness.NewListBookBusiness(store)
 
-		result, err := biz.ListBook(c.Request.Context(), &pagingData)
+		result, err := business.ListBook(c.Request.Context(), &pagingData)
 
 		if err != nil {
 			panic(err)

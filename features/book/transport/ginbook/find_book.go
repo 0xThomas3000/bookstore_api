@@ -5,7 +5,7 @@ import (
 
 	"github.com/0xThomas3000/bookstore_api/component/appcontext"
 	"github.com/0xThomas3000/bookstore_api/core"
-	bookBiz "github.com/0xThomas3000/bookstore_api/features/book/business"
+	bookBusiness "github.com/0xThomas3000/bookstore_api/features/book/business"
 	bookStorage "github.com/0xThomas3000/bookstore_api/features/book/storage"
 	"github.com/gin-gonic/gin"
 )
@@ -21,7 +21,7 @@ func FindBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 		}
 
 		store := bookStorage.NewSQLStore(db)
-		business := bookBiz.NewFindBookBusiness(store)
+		business := bookBusiness.NewFindBookBusiness(store)
 
 		result, err := business.FindBook(c.Request.Context(), int(uid.GetLocalID()))
 

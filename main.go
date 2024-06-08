@@ -59,8 +59,11 @@ func main() {
 	// 3. API to list all books
 	books.GET("/", ginbook.ListBook(appContext))
 
-	// 4. Update book information
+	// 4. API: update book information
 	books.PUT("/:id", ginbook.UpdateBook(appContext))
+
+	// 5. API: delete a book
+	books.DELETE("/:id", ginbook.DeleteBook(appContext))
 
 	request.Run()
 }
