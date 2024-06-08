@@ -7,7 +7,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"bookstore_api/util"
+	"github.com/0xThomas3000/bookstore_api/util"
 )
 
 func main() {
