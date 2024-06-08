@@ -3,7 +3,6 @@ package bookentity
 import (
 	"errors"
 	"strings"
-	"time"
 
 	"github.com/0xThomas3000/bookstore_api/core"
 )
@@ -14,7 +13,7 @@ type Book struct {
 	core.SQLModel `json:",inline"`
 	Title         string      `json:"title" gorm:"column:title;"`
 	Author        string      `json:"author" gorm:"column:author;"`
-	PublishedDate *time.Time  `json:"published_date" gorm:"column:published_date;"`
+	PublishedDate string      `json:"published_date" gorm:"column:published_date;"`
 	Isbn          string      `json:"isbn" gorm:"column:isbn;"`
 	NumberOfPages int         `json:"number_of_pages" gorm:"column:number_of_pages;"`
 	CoverImage    *core.Image `json:"cover_image" gorm:"cover_image;"`
@@ -33,7 +32,7 @@ type BookAdd struct {
 	core.SQLModel `json:",inline"`
 	Title         string      `json:"title" gorm:"column:title;"`
 	Author        string      `json:"author" gorm:"column:author;"`
-	PublishedDate *time.Time  `json:"published_date" gorm:"column:published_date;"`
+	PublishedDate string      `json:"published_date" gorm:"column:published_date;"`
 	Isbn          string      `json:"isbn" gorm:"column:isbn;"`
 	NumberOfPages int         `json:"number_of_pages" gorm:"column:number_of_pages;"`
 	CoverImage    *core.Image `json:"cover_image" gorm:"cover_image;"`
@@ -69,7 +68,7 @@ func (b *BookAdd) Validate() error {
 type BookUpdate struct {
 	Title         *string     `json:"title" gorm:"column:title;"`
 	Author        *string     `json:"author" gorm:"column:author;"`
-	PublishedDate *time.Time  `json:"published_date" gorm:"column:published_date;"`
+	PublishedDate string      `json:"published_date" gorm:"column:published_date;"`
 	Isbn          *string     `json:"isbn" gorm:"column:isbn;"`
 	NumberOfPages *int        `json:"number_of_pages" gorm:"column:number_of_pages;"`
 	CoverImage    *core.Image `json:"cover_image" gorm:"cover_image;"`

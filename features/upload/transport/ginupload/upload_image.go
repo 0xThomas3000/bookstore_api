@@ -17,18 +17,13 @@ func UploadImage(appCtx appcontext.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		// dst: tên của folder & file
+		// Destination: folder and file name
 		if err := c.SaveUploadedFile(fileHeader, fmt.Sprintf("static/%s", fileHeader.Filename)); err != nil {
 			panic(err)
 		}
 
 		c.JSON(http.StatusOK, core.SimpleSuccessResponse(core.Image{
-			Id:        0,
-			Url:       "http://localhost:8080/static/" + fileHeader.Filename,
-			Width:     2119,
-			Height:    1414,
-			CloudName: "local",
-			Extension: "jpeg",
+			Url: "http://localhost:8080/static/" + fileHeader.Filename,
 		}))
 	}
 }
