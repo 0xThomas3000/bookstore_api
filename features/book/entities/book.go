@@ -53,6 +53,7 @@ func (b *BookAdd) Validate() error {
 	b.Author = strings.TrimSpace(b.Author)
 	b.PublishedDate = strings.TrimSpace(b.PublishedDate)
 	b.Isbn = strings.TrimSpace(b.Isbn)
+	b.Language = strings.TrimSpace(b.Language)
 
 	if b.Title == "" {
 		return ErrTitleIsEmpty
@@ -65,6 +66,12 @@ func (b *BookAdd) Validate() error {
 	}
 	if ok, _ := regexp.MatchString("\\d{13}", b.Isbn); !ok {
 		return ErrIsbnInvalid
+	}
+	if b.NumberOfPages <= 0 {
+		return ErrNumberInvalid
+	}
+	if b.Language == "" {
+		return ErrLanguageIsEmpty
 	}
 
 	return nil
@@ -97,6 +104,9 @@ func (b *BookUpdate) Validate() error {
 	if b.Isbn != nil {
 		*b.Isbn = strings.TrimSpace(*b.Isbn)
 	}
+	if b.Language != nil {
+		*b.Language = strings.TrimSpace(*b.Language)
+	}
 	if *b.Title == "" {
 		return ErrTitleIsEmpty
 	}
@@ -109,6 +119,12 @@ func (b *BookUpdate) Validate() error {
 	if ok, _ := regexp.MatchString("\\d{13}", *b.Isbn); !ok {
 		return ErrIsbnInvalid
 	}
+	if *b.NumberOfPages <= 0 {
+		return ErrNumberInvalid
+	}
+	if *b.Language == "" {
+		return ErrLanguageIsEmpty
+	}
 
 	return nil
 }
@@ -118,4 +134,6 @@ var (
 	ErrAuthorIsEmpty        = errors.New("author cannot be empty")
 	ErrPublishedDateInvalid = errors.New("published date must be in 'YYYY-MM-DD' format")
 	ErrIsbnInvalid          = errors.New("isbn must have 13 digits")
+	ErrNumberInvalid        = errors.New("number of pages must be greater than 0")
+	ErrLanguageIsEmpty      = errors.New("language should not be empty")
 )

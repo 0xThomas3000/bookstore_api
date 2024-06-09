@@ -11,7 +11,7 @@ CREATE TABLE `books` (
   `isbn` varchar(50) NOT NULL,
   `number_of_pages` int NOT NULL,
   `cover_image` json NULL,
-  `language` varchar(20) NULL DEFAULT 'English',
+  `language` varchar(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
