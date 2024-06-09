@@ -41,7 +41,7 @@ func (business *updateBookBusiness) UpdateBook(
 	}
 
 	if err := business.store.Update(context, id, data); err != nil {
-		return core.ErrCannotUpdateEntity(bookEntity.EntityName, nil)
+		return core.ErrBadRequest(err)
 	}
 
 	return nil

@@ -38,6 +38,6 @@ func DeleteBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		c.JSON(http.StatusOK, core.SimpleSuccessResponse(true))
+		c.JSON(http.StatusNoContent, core.SimpleSuccessResponse(nil))
 	}
 }

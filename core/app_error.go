@@ -49,7 +49,7 @@ func NewCustomError(root error, msg string, key string) *AppError {
 		return NewErrorResponse(root, msg, root.Error(), key)
 	}
 
-	return NewErrorResponse(errors.New(msg), msg, msg, key)
+	return NewErrorResponse(errors.New(msg), msg, "invalid input data", key)
 }
 
 func (e *AppError) RootError() error {
@@ -65,7 +65,7 @@ func (e *AppError) Error() string {
 }
 
 func ErrDB(err error) *AppError {
-	return NewFullErrorResponse(http.StatusInternalServerError, err, "something went wrong with DB", err.Error(), "DB_ERROR")
+	return NewFullErrorResponse(http.StatusInternalServerError, err, "not found", err.Error(), "DB_ERROR")
 }
 
 func ErrBadRequest(err error) *AppError {
@@ -73,8 +73,8 @@ func ErrBadRequest(err error) *AppError {
 }
 
 func ErrInternal(err error) *AppError {
-	return NewFullErrorResponse(http.StatusInternalServerError, err,
-		"something went wrong in the server", err.Error(), "ErrInternal")
+	return NewFullErrorResponse(http.StatusNotFound, err,
+		"not found", err.Error(), "ErrNotFound")
 }
 
 func ErrCannotListEntity(entity string, err error) *AppError {
@@ -96,7 +96,7 @@ func ErrCannotDeleteEntity(entity string, err error) *AppError {
 func ErrCannotUpdateEntity(entity string, err error) *AppError {
 	return NewCustomError(
 		err,
-		fmt.Sprintf("Cannot update %s", strings.ToLower(entity)),
+		"bad request",
 		fmt.Sprintf("ErrCannotUpdate%s", entity),
 	)
 }
@@ -126,8 +126,10 @@ func ErrEntityExisted(entity string, err error) *AppError {
 }
 
 func ErrEntityNotFound(entity string, err error) *AppError {
-	return NewCustomError(
+	return NewFullErrorResponse(
+		http.StatusNotFound,
 		err,
+		"not found",
 		fmt.Sprintf("%s not found", strings.ToLower(entity)),
 		fmt.Sprintf("Err%sNotFound", entity),
 	)
@@ -144,9 +146,10 @@ func ErrCannotCreateEntity(entity string, err error) *AppError {
 func ErrNoPermission(err error) *AppError {
 	return NewCustomError(
 		err,
-		fmt.Sprintf("You have no permission"),
-		fmt.Sprintf("ErrNoPermission"),
+		"You have no permission",
+		"ErrNoPermission",
 	)
 }
 
+var BookNotFound = errors.New("book not found")
 var RecordNotFound = errors.New("record not found")

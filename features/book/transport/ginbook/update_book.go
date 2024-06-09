@@ -34,6 +34,6 @@ func UpdateBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		c.JSON(http.StatusOK, core.SimpleSuccessResponse(true))
+		c.JSON(http.StatusOK, core.UpdateSuccessResponse("book information updated"))
 	}
 }

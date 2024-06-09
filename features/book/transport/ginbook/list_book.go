@@ -35,6 +35,6 @@ func ListBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 			result[i].Mask()
 		}
 
-		c.JSON(http.StatusOK, core.NewSuccessResponse(result, pagingData))
+		c.JSON(http.StatusOK, core.NewSuccessResponse(result, pagingData, ""))
 	}
 }

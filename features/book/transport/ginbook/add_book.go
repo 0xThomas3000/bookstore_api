@@ -34,7 +34,8 @@ func AddBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 			gin.H{
 				"status_code": http.StatusCreated,
 				"id":          data.FakeId.String(),
-				"message":     "Book successfully added",
+				"message":     "created",
+				"log":         "book successfully added",
 			},
 		)
 	}

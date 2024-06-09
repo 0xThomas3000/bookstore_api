@@ -19,7 +19,7 @@ func (s *sqlStore) FindDataWithCondition(
 	// 2: Another error (DB parse key wrong)
 	if err := s.db.Where(condition).First(&data).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, core.RecordNotFound
+			return nil, core.BookNotFound
 		}
 		return nil, core.ErrDB(err)
 	}
