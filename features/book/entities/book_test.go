@@ -1,0 +1,58 @@
+package bookentity
+
+import (
+	"testing"
+)
+
+type TestBookAdd struct {
+	Input       BookAdd
+	ErrExpected error
+}
+
+type TestBookUpdate struct {
+	Input       BookUpdate
+	ErrExpected error
+}
+
+func TestBookAdd_Validate(t *testing.T) {
+	dataTable := []TestBookAdd{
+		{Input: BookAdd{Title: ""}, ErrExpected: ErrTitleIsEmpty},
+		{Input: BookAdd{Title: "Harry Potter", Author: ""}, ErrExpected: ErrAuthorIsEmpty},
+		{Input: BookAdd{Title: "Harry Potter", Author: "J. K. Rowling", PublishedDate: "1997/06/26"}, ErrExpected: ErrPublishedDateInvalid},
+		{Input: BookAdd{Title: "Harry Potter", Author: "J. K. Rowling", PublishedDate: "1997-06-26", Isbn: "123456"}, ErrExpected: ErrIsbnInvalid},
+		{Input: BookAdd{Title: "Harry Potter", Author: "J. K. Rowling", PublishedDate: "1997-06-26", Isbn: "1234567890123"}, ErrExpected: nil},
+	}
+
+	for _, item := range dataTable {
+		err := item.Input.Validate()
+		if err != item.ErrExpected {
+			t.Errorf("Validate book. Input: %v, Expect: %v, Output: %v", item.Input, item.ErrExpected, err)
+		}
+	}
+}
+
+func TestBookUpdate_Validate(t *testing.T) {
+	var title1 = ""
+	var title2 = "Head First Java"
+	var author1 = ""
+	var author2 = "Kathy Sierra"
+	var pubDate1 = "2005/05/15"
+	var pubDate2 = "2005-05-15"
+	var isbn1 = "9999"
+	var isbn2 = "1234567890123"
+
+	dataTable := []TestBookUpdate{
+		{Input: BookUpdate{Title: &title1}, ErrExpected: ErrTitleIsEmpty},
+		{Input: BookUpdate{Title: &title2, Author: &author1}, ErrExpected: ErrAuthorIsEmpty},
+		{Input: BookUpdate{Title: &title2, Author: &author2, PublishedDate: &pubDate1}, ErrExpected: ErrPublishedDateInvalid},
+		{Input: BookUpdate{Title: &title2, Author: &author2, PublishedDate: &pubDate2, Isbn: &isbn1}, ErrExpected: ErrIsbnInvalid},
+		{Input: BookUpdate{Title: &title2, Author: &author2, PublishedDate: &pubDate2, Isbn: &isbn2}, ErrExpected: nil},
+	}
+
+	for _, item := range dataTable {
+		err := item.Input.Validate()
+		if err != item.ErrExpected {
+			t.Errorf("Validate book. Input: %v, Expect: %v, Output: %v", item.Input, item.ErrExpected, err)
+		}
+	}
+}
