@@ -30,6 +30,6 @@ func AddBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 
 		data.Mask()
 
-		c.JSON(http.StatusOK, core.SimpleSuccessResponse(data.FakeId.String()))
+		c.JSON(http.StatusCreated, core.SimpleSuccessResponse(data.FakeId.String()))
 	}
 }
