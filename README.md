@@ -200,4 +200,4 @@ curl --location --request DELETE 'http://localhost:8080/g1/books/DCZjYGxLJLZzE4k
 
 In this project, we have some mock code for entities, business layer:
 
-- Therefore, we can the navigate to each of these folders `entities`, `business` and run `go test .` command
+- Therefore, we can then navigate to each of these folders: `entities`, `business` to run `go test .` command for unit testing
