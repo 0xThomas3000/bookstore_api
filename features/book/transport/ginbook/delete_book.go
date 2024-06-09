@@ -18,13 +18,13 @@ func DeleteBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 		uid, err := core.FromBase58(c.Param("id"))
 
 		if err != nil {
-			panic(core.ErrInvalidRequest(err))
+			panic(core.ErrBadRequest(err))
 		}
 
 		var data bookEntity.Book
 
 		if err := c.ShouldBind(&data); err != nil {
-			panic(core.ErrInvalidRequest(err))
+			panic(core.ErrBadRequest(err))
 		}
 
 		store := bookStore.NewSQLStore(db)

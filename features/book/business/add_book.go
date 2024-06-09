@@ -2,6 +2,7 @@ package bookbusiness
 
 import (
 	"context"
+
 	"github.com/0xThomas3000/bookstore_api/core"
 	bookentity "github.com/0xThomas3000/bookstore_api/features/book/entities"
 )
@@ -20,7 +21,7 @@ func NewAddBookBusiness(store AddBookStore) *addBookBusiness {
 
 func (business *addBookBusiness) AddBook(context context.Context, data *bookentity.BookAdd) error {
 	if err := data.Validate(); err != nil {
-		return core.ErrInvalidRequest(err)
+		return core.ErrBadRequest(err)
 	}
 
 	if err := business.store.Add(context, data); err != nil {

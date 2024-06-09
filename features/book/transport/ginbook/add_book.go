@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/0xThomas3000/bookstore_api/component/appcontext"
-	"github.com/0xThomas3000/bookstore_api/core"
 	bookBusiness "github.com/0xThomas3000/bookstore_api/features/book/business"
 	bookEntity "github.com/0xThomas3000/bookstore_api/features/book/entities"
 	bookStorage "github.com/0xThomas3000/bookstore_api/features/book/storage"
@@ -30,6 +29,13 @@ func AddBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 
 		data.Mask()
 
-		c.JSON(http.StatusCreated, core.SimpleSuccessResponse(data.FakeId.String()))
+		c.JSON(
+			http.StatusCreated,
+			gin.H{
+				"status_code": http.StatusCreated,
+				"id":          data.FakeId.String(),
+				"message":     "Book successfully added",
+			},
+		)
 	}
 }

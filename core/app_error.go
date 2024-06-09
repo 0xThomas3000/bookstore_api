@@ -68,8 +68,8 @@ func ErrDB(err error) *AppError {
 	return NewFullErrorResponse(http.StatusInternalServerError, err, "something went wrong with DB", err.Error(), "DB_ERROR")
 }
 
-func ErrInvalidRequest(err error) *AppError {
-	return NewErrorResponse(err, "invalid request", err.Error(), "ErrInvalidRequest")
+func ErrBadRequest(err error) *AppError {
+	return NewErrorResponse(err, "bad request", err.Error(), "ErrBadRequest")
 }
 
 func ErrInternal(err error) *AppError {

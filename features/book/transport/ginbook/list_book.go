@@ -17,7 +17,7 @@ func ListBook(appCtx appcontext.AppContext) gin.HandlerFunc {
 		var pagingData core.Paging
 
 		if err := c.ShouldBind(&pagingData); err != nil {
-			panic(core.ErrInvalidRequest(err))
+			panic(core.ErrBadRequest(err))
 		}
 
 		pagingData.Fulfill()
